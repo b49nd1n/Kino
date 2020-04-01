@@ -1,0 +1,1 @@
+INSERT INTO public.hall (id, description) VALUES (1, 'hall1');
