@@ -1,73 +1,80 @@
 package ru.sfedu.pKino.model;
-import java.util.HashSet;
 
-import java.util.Set;
-
-public class Employee extends Man {
-
-    public int id;
-    private String position; //должность
-    private Salary SumSalary;
+import ru.sfedu.pKino.constants.Constants;
+import ru.sfedu.pKino.repository.interfaces.CsvConvertable;
+import ru.sfedu.pKino.repository.interfaces.XMLConvertable;
 
 
-    public Employee(int id, String position, Salary sumSalary, Set hall) {
+public class Employee implements CsvConvertable, XMLConvertable {
+
+    private long   id;
+    private String name;
+    private long   salary;
+    private long   hall_id;
+    private long   type_id;
+
+
+    public Employee(int id, String name, int salary, int hall_id, int type_id) {
         this.id = id;
-        this.position = position;
-        SumSalary = sumSalary;
-        Hall = hall;
+        this.name = name;
+        this.salary = salary;
+        this.hall_id = hall_id;
+        this.type_id = type_id;
     }
 
-
-    public Salary getSumSalary() {
-        return SumSalary;
-    }
-
-    public void setSumSalary(Salary sumSalary) {
-        SumSalary = sumSalary;
-    }
-
-    public void setHall(Set hall) {
-        Hall = hall;
-    }
-
-    public Employee(String n, String s, String p){
-        name = n;
-        surname = s;
-        position = p;
-    }
-
-    public int getId() {
+    public long getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setPosition(String newProfession){
-        position = newProfession;
+    public String getName() {
+        return name;
     }
-    public String getPosition(){
-        return position;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public long getHall_id() {
+        return hall_id;
+    }
+
+    public void setHall_id(int hall_id) {
+        this.hall_id = hall_id;
+    }
+
+    public long getType_id() {
+        return type_id;
+    }
+
+    public void setType_id(int type_id) {
+        this.type_id = type_id;
     }
 
 
+    @Override
+    public String convertToCsv() {
+        return id + Constants.CSV_SEPARATOR
+               + name + Constants.CSV_SEPARATOR
+               + salary + Constants.CSV_SEPARATOR
+               + hall_id + Constants.CSV_SEPARATOR
+               + type_id + Constants.CSV_SEPARATOR;
 
-
-    public void setSalary(Salary c){
-        SumSalary = c;
-    }
-    public Salary getSalary(){
-        return SumSalary;
     }
 
-    private Set Hall = new HashSet();
-    public void setHall(Hall newHall){
-        Hall.add(newHall);
-    }
-    public Set getHall(){
-        return Hall;
-    }
-    public void deleteHall(Hall r){
-        Hall.remove(r);
+    @Override
+    public String convertToXML() {
+        return null;
     }
 }

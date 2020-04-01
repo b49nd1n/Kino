@@ -3,24 +3,24 @@ package ru.sfedu.pKino.model;
 import java.sql.Timestamp;
 
 public class Film {
-    private int       id;
+    private long       id;
     private String    title;
     private Timestamp startDate;
     private Timestamp endDate;
 
 
-    public Film(int id, String title, Timestamp startDate, Timestamp endDate) {
+    public Film(long id, String title, Timestamp startDate, Timestamp endDate) {
         this.id = id;
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

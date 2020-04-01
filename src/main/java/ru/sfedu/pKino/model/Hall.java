@@ -1,24 +1,25 @@
 package ru.sfedu.pKino.model;
 
 public class Hall {
-    public int id;
-    private int numViewer;
-    private int number;
-    public Hall(int n){
-        number = n;
-    }
 
-    public int getId() {
+    private long id;
+    private String description;
+
+    public long getId() {
         return id;
     }
-    public void setId(int id) {
+
+    public void setId(long id) {
         this.id = id;
     }
 
-    public void setNumber(int newNumber){
-        number = newNumber;
+    public String getDescription() {
+        return description;
     }
-    public int getNumber(){
-        return number;
+
+    public void setDescription(String description) {
+        this.description = description;
     }
+
+
 }
