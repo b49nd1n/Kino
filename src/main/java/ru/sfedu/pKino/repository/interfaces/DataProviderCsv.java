@@ -39,21 +39,21 @@ public class DataProviderCsv implements IDataProvider {
 
 
     @Override
-    public void saveRecord(Convertable object) {
-        if (object instanceof CsvConvertable) {
-            csvWriter.writeNext(((CsvConvertable) object).convertToCsv());
+    public void saveRecord(Entity object) {
+        if (object != null) {
+            csvWriter.writeNext(object.toStringsArray());
         }
     }
 
     @Override
-    public void deleteRecord(Convertable object) {
-        if (object instanceof CsvConvertable) {
+    public void deleteRecord(Entity object) {
+        if (object != null) {
 
             try {
                 csvWriter.writeAll(
                         csvReader.readAll().stream()
                                 .filter(strings ->
-                                        Arrays.compare(((CsvConvertable) object).convertToCsv(), strings) != 0)
+                                        Arrays.compare(object.toStringsArray(), strings) != 0)
                                 .collect(Collectors.toList()));
             } catch (IOException | CsvException e) {
                 log.error(e);

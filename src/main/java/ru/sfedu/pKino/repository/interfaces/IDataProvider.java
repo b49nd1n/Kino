@@ -10,9 +10,9 @@ public interface IDataProvider {
         return null;
     };
 
-    void saveRecord(Convertable object);
+    void saveRecord(Entity object);
 
-    void deleteRecord(Convertable object);
+    void deleteRecord(Entity object);
 
     List<Object> findAll();
 

@@ -1,6 +1,8 @@
 package ru.sfedu.pKino.model;
 
-public class Session {
+import ru.sfedu.pKino.repository.interfaces.Entity;
+
+public class Session extends Entity<Session> {
 
     private long id;
     private long film_id;
@@ -35,4 +37,5 @@ public class Session {
     public void setHall_id(long hall_id) {
         this.hall_id = hall_id;
     }
+
 }

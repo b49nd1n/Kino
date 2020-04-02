@@ -1,6 +1,8 @@
 package ru.sfedu.pKino.model;
 
-public class Hall {
+import ru.sfedu.pKino.repository.interfaces.Entity;
+
+public class Hall extends Entity<Hall> {
 
     private long id;
     private String description;

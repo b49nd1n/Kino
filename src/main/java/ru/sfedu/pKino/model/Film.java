@@ -1,8 +1,10 @@
 package ru.sfedu.pKino.model;
 
+import ru.sfedu.pKino.repository.interfaces.Entity;
+
 import java.sql.Timestamp;
 
-public class Film {
+public class Film extends Entity<Film> {
     private long       id;
     private String    title;
     private Timestamp startDate;
@@ -47,4 +49,6 @@ public class Film {
     public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
+
+
 }

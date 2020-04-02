@@ -1,11 +1,9 @@
 package ru.sfedu.pKino.model;
 
-import ru.sfedu.pKino.constants.Constants;
-import ru.sfedu.pKino.repository.interfaces.CsvConvertable;
-import ru.sfedu.pKino.repository.interfaces.XMLConvertable;
+import ru.sfedu.pKino.repository.interfaces.Entity;
 
 
-public class Employee implements CsvConvertable, XMLConvertable {
+public class Employee extends Entity<Employee> {
 
     private long   id;
     private String name;
@@ -13,6 +11,10 @@ public class Employee implements CsvConvertable, XMLConvertable {
     private long   hall_id;
     private long   type_id;
 
+
+    public Employee(){
+
+    }
 
     public Employee(int id, String name, int salary, int hall_id, int type_id) {
         this.id = id;
@@ -62,19 +64,4 @@ public class Employee implements CsvConvertable, XMLConvertable {
         this.type_id = type_id;
     }
 
-
-    @Override
-    public String convertToCsv() {
-        return id + Constants.CSV_SEPARATOR
-               + name + Constants.CSV_SEPARATOR
-               + salary + Constants.CSV_SEPARATOR
-               + hall_id + Constants.CSV_SEPARATOR
-               + type_id + Constants.CSV_SEPARATOR;
-
-    }
-
-    @Override
-    public String convertToXML() {
-        return null;
-    }
 }

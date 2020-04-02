@@ -1,9 +1,8 @@
 package ru.sfedu.pKino.model;
 
-import ru.sfedu.pKino.repository.interfaces.CsvConvertable;
-import ru.sfedu.pKino.repository.interfaces.XMLConvertable;
+import ru.sfedu.pKino.repository.interfaces.Entity;
 
-public class Employee_type implements CsvConvertable, XMLConvertable {
+public class Employee_type extends Entity<Employee_type> {
 
     private long id;
     private String description;
@@ -27,15 +26,5 @@ public class Employee_type implements CsvConvertable, XMLConvertable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Override
-    public String convertToCsv() {
-        return null;
-    }
-
-    @Override
-    public String convertToXML() {
-        return null;
     }
 }
