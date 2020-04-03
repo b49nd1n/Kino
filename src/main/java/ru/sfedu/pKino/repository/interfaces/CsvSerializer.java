@@ -1,7 +1,5 @@
 package ru.sfedu.pKino.repository.interfaces;
 
-import ru.sfedu.pKino.model.Employee;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -9,20 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CsvSerializer {
-
-    public static void main(String[] args) {
-
-        Employee employee = new Employee();
-        employee.setId(0);
-        employee.setSalary(10);
-        employee.setName("sdf");
-        employee.setHall_id(1);
-        employee.setType_id(2);
-
-        System.out.println(Arrays.toString(new CsvSerializer().serialize(employee)));
-
-        System.out.println(new CsvSerializer().deserialize(new CsvSerializer().serialize(employee)).toString());
-    }
 
 
     static <T extends Entity> String[] serialize(T entity) {
@@ -38,7 +22,7 @@ public class CsvSerializer {
 
     }
 
-    static <T extends Entity> List<String[]> serializeAll(List<T> entities){
+    static <T extends Entity> List<String[]> serializeAll(List<T> entities) {
         return entities.stream().map(CsvSerializer::serialize).collect(Collectors.toList());
     }
 

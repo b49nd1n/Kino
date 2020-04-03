@@ -27,7 +27,7 @@ public class DataProviderCsv extends IDataProvider {
 
         if (dataProviderCsv == null) {
             dataProviderCsv = new DataProviderCsv();
-
+            FILE_EXTENSION = ".csv";
         }
 
         return dataProviderCsv;
@@ -44,7 +44,7 @@ public class DataProviderCsv extends IDataProvider {
             return writeToFile(list
                             .stream()
                             .map(CsvSerializer::serialize).collect(Collectors.toList()),
-                    repository.getFilePath());
+                    getFilePath(repository));
         }
 
         return false;
@@ -77,7 +77,7 @@ public class DataProviderCsv extends IDataProvider {
                         t.updateFromStrings(object.toStringsArray());
                     }
                     return CsvSerializer.serialize(t);
-                }).collect(Collectors.toList()), repository.getFilePath());
+                }).collect(Collectors.toList()), getFilePath(repository));
 
             }
 
@@ -94,7 +94,7 @@ public class DataProviderCsv extends IDataProvider {
             List<T> list = findAll(repository);
             list.remove(object);
 
-            return writeToFile(CsvSerializer.serializeAll(list), repository.getFilePath());
+            return writeToFile(CsvSerializer.serializeAll(list), getFilePath(repository));
         }
         return false;
     }
@@ -105,7 +105,7 @@ public class DataProviderCsv extends IDataProvider {
         List<String[]> list;
         List<T>        entities = new ArrayList<>();
 
-        try (CSVReader csvReader = new CSVReader(new FileReader(getFilePath()))) {
+        try (CSVReader csvReader = new CSVReader(new FileReader(getFilePath(repository)))) {
 
             list = csvReader.readAll();
 

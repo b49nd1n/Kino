@@ -26,6 +26,7 @@ public class DataProviderXml extends IDataProvider {
 
         if (dataProviderXml == null) {
             dataProviderXml = new DataProviderXml();
+            FILE_EXTENSION = ".xml";
         }
 
         return dataProviderXml;
@@ -41,7 +42,7 @@ public class DataProviderXml extends IDataProvider {
                     t.updateFromStrings(object.toStringsArray());
                 }
                 return t;
-            }).collect(Collectors.toList()), repository.getFilePath());
+            }).collect(Collectors.toList()), getFilePath(repository));
 
         }
 
@@ -51,7 +52,7 @@ public class DataProviderXml extends IDataProvider {
     @Override
     public <T extends Entity> List<T> findAll(Repository repository) {
 
-        List<T> list = readFromFile(repository.getFilePath());
+        List<T> list = readFromFile(getFilePath(repository));
 
         if (list == null) {
             return new ArrayList<>();
@@ -71,7 +72,7 @@ public class DataProviderXml extends IDataProvider {
 
         list.add(entity);
 
-        return writeToFile(list, repository.getFilePath());
+        return writeToFile(list, getFilePath(repository));
 
     }
 
@@ -83,7 +84,7 @@ public class DataProviderXml extends IDataProvider {
 
         list.remove(object);
 
-        return writeToFile(list, repository.getFilePath());
+        return writeToFile(list, getFilePath(repository));
 
     }
 
