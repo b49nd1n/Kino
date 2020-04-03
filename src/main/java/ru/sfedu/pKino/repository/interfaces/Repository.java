@@ -2,37 +2,58 @@ package ru.sfedu.pKino.repository.interfaces;
 
 import ru.sfedu.pKino.Main;
 
-import java.io.IOException;
+public abstract class Repository<T extends Entity> {
 
-public interface Repository<T> {
+    private String        filePath;
+    private IDataProvider dataProvider;
 
-    default IDataProvider getDataProvider(String className) throws IOException {
+    public Repository(String className) {
+
+        this.filePath = className;
 
         switch (Main.dataType) {
 
             case CSV: {
 
-                return DataProviderCsv.getInstance(className);
+                setDataProvider(DataProviderCsv.getInstance());
             }
             case XML: {
 
-                return DataProviderXml.getInstance(className);
+                setDataProvider(DataProviderXml.getInstance());
             }
 
             case JDBC: {
 
-//                return DataProviderJDBC...
+                setDataProvider(DataProviderJDBC.getInstance());
 
             }
         }
-        return null;
-
     }
 
-    void save(T object);
+    public IDataProvider getDataProvider() {
+        return dataProvider;
+    }
 
-    void delete(T object);
+    public void setDataProvider(IDataProvider dataProvider) {
+        this.dataProvider = dataProvider;
+    }
 
-    T getById(Long id);
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void save(T object) {
+        dataProvider.saveRecord(object, this);
+    }
+
+    public void delete(T object) {
+        dataProvider.deleteRecord(object, this);
+    }
+
+    public T getById(Long id) {
+        return (T) dataProvider.findAll(this).stream()
+                .filter(entity -> entity.compareById(id))
+                .findFirst().orElse(null);
+    }
 
 }

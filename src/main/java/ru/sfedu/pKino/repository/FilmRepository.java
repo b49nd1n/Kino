@@ -1,13 +1,12 @@
 package ru.sfedu.pKino.repository;
 
 import ru.sfedu.pKino.model.Employee;
+import ru.sfedu.pKino.model.Film;
 import ru.sfedu.pKino.repository.interfaces.Repository;
 
-import java.io.IOException;
+public class FilmRepository extends Repository<Film> {
 
-public class EmployeeRepository extends Repository<Employee> {
-
-    public EmployeeRepository(String className) throws IOException {
+    public FilmRepository(String className) {
         super(className);
     }
 }

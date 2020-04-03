@@ -1,19 +1,34 @@
 package ru.sfedu.pKino.repository.interfaces;
 
-import java.io.IOException;
 import java.util.List;
 
 
-public interface IDataProvider {
+public abstract class IDataProvider {
 
-    static IDataProvider getInstance(String filename) throws IOException{
+    private String filePath;
+
+
+    IDataProvider() {
+
+    }
+
+    static IDataProvider getInstance() {
         return null;
-    };
+    }
 
-    void saveRecord(Entity object);
+    public String getFilePath() {
+        return filePath;
+    }
 
-    void deleteRecord(Entity object);
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
-    List<Object> findAll();
+    abstract public <T extends Entity> boolean saveRecord(T object, Repository repository);
 
+    abstract public <T extends Entity> boolean updateRecord(T object, Repository repository);
+
+    abstract public <T extends Entity> boolean deleteRecord(T object, Repository repository);
+
+    abstract public <T extends Entity> List<T> findAll(Repository repository);
 }

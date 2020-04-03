@@ -9,63 +9,116 @@ import org.apache.logging.log4j.Logger;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DataProviderCsv implements IDataProvider {
+public class DataProviderCsv extends IDataProvider {
 
     private volatile static DataProviderCsv dataProviderCsv;
 
     private static Logger log = LogManager.getLogger();
 
-    private CSVReader csvReader;
-    private CSVWriter csvWriter;
-
-
     private DataProviderCsv() {
+        super();
     }
 
-    public static DataProviderCsv getInstance(String filename) throws IOException {
+    public static DataProviderCsv getInstance() {
 
         if (dataProviderCsv == null) {
             dataProviderCsv = new DataProviderCsv();
-            dataProviderCsv.csvWriter = new CSVWriter(new FileWriter(filename));
-            dataProviderCsv.csvReader = new CSVReader(new FileReader(filename));
+
         }
 
         return dataProviderCsv;
     }
 
-
     @Override
-    public void saveRecord(Entity object) {
+    public <T extends Entity> boolean saveRecord(T object, Repository repository) {
+
         if (object != null) {
-            csvWriter.writeNext(object.toStringsArray());
+
+            List<T> list = findAll(repository);
+            list.add(object);
+
+            return writeToFile(list
+                            .stream()
+                            .map(CsvSerializer::serialize).collect(Collectors.toList()),
+                    repository.getFilePath());
         }
+
+        return false;
+
     }
 
+
+    private boolean writeToFile(List<String[]> data, String filePath) {
+
+        try (CSVWriter csvWriter = new CSVWriter(new FileWriter(filePath))) {
+            csvWriter.writeAll(data);
+        } catch (IOException e) {
+            log.error(e);
+            return false;
+        }
+        return true;
+    }
+
+
     @Override
-    public void deleteRecord(Entity object) {
+    public <T extends Entity> boolean updateRecord(T object, Repository repository) {
+
         if (object != null) {
 
-            try {
-                csvWriter.writeAll(
-                        csvReader.readAll().stream()
-                                .filter(strings ->
-                                        Arrays.compare(object.toStringsArray(), strings) != 0)
-                                .collect(Collectors.toList()));
-            } catch (IOException | CsvException e) {
-                log.error(e);
-                e.printStackTrace();
+            List<T> list = findAll(repository);
+            if (list != null) {
+
+                writeToFile(list.stream().map(t -> {
+                    if (t.compareById(object)) {
+                        t.updateFromStrings(object.toStringsArray());
+                    }
+                    return CsvSerializer.serialize(t);
+                }).collect(Collectors.toList()), repository.getFilePath());
+
             }
 
         }
+
+        return false;
+
     }
 
     @Override
-    public List<Object> findAll() {
-        return null;
+    public <T extends Entity> boolean deleteRecord(T object, Repository repository) {
+        if (object != null) {
+
+            List<T> list = findAll(repository);
+            list.remove(object);
+
+            return writeToFile(CsvSerializer.serializeAll(list), repository.getFilePath());
+        }
+        return false;
+    }
+
+    @Override
+    public <T extends Entity> List<T> findAll(Repository repository) {
+
+        List<String[]> list;
+        List<T>        entities = new ArrayList<>();
+
+        try (CSVReader csvReader = new CSVReader(new FileReader(getFilePath()))) {
+
+            list = csvReader.readAll();
+
+            list.forEach(strings -> entities.add(CsvSerializer.deserialize(strings)));
+
+        } catch (IOException | CsvException e) {
+            log.error(e);
+            e.printStackTrace();
+        }
+
+        return entities;
+
+
     }
 
 }

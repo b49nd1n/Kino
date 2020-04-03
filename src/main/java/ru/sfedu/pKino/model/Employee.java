@@ -64,4 +64,14 @@ public class Employee extends Entity<Employee> {
         this.type_id = type_id;
     }
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+               "id=" + id +
+               ", name='" + name + '\'' +
+               ", salary=" + salary +
+               ", hall_id=" + hall_id +
+               ", type_id=" + type_id +
+               '}';
+    }
 }

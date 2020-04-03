@@ -2,12 +2,12 @@ package ru.sfedu.pKino.model;
 
 import ru.sfedu.pKino.repository.interfaces.Entity;
 
-public class Employee_type extends Entity<Employee_type> {
+public class EmployeeType extends Entity<EmployeeType> {
 
     private long id;
     private String description;
 
-    public Employee_type(long id, String description) {
+    public EmployeeType(long id, String description) {
         this.id = id;
         this.description = description;
     }
