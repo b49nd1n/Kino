@@ -4,19 +4,20 @@ import java.util.List;
 
 public class DataProviderJDBC extends IDataProvider {
 
-    @Override
-    public <T extends Entity> void saveRecord(T object, Repository repository) {
 
+    @Override
+    public <T extends Entity> boolean saveRecord(T object, Repository repository) {
+        return false;
     }
 
     @Override
-    public <T extends Entity> void updateRecord(T object, Repository repository) {
-
+    public <T extends Entity> boolean updateRecord(T object, Repository repository) {
+        return false;
     }
 
     @Override
-    public <T extends Entity> void deleteRecord(T object, Repository repository) {
-
+    public <T extends Entity> boolean deleteRecord(T object, Repository repository) {
+        return false;
     }
 
     @Override
