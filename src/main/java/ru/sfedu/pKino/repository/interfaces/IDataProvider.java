@@ -27,6 +27,6 @@ public abstract class IDataProvider {
     abstract public <T extends Entity> List<T> findAll(Repository repository);
 
     public String getFilePath(Repository repository) {
-        return Main.dataFolder + File.separator + getFilePath(repository) + FILE_EXTENSION;
+        return Main.dataFolder + File.separator + repository.getFilePath() + FILE_EXTENSION;
     }
 }

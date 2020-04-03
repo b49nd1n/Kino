@@ -2,30 +2,39 @@ package ru.sfedu.pKino.repository.interfaces;
 
 import ru.sfedu.pKino.Main;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public abstract class Repository<T extends Entity> {
 
     private String        filePath;
     private IDataProvider dataProvider;
+    private String        typePattern = ".*?<.*\\.(?<type>[^.]+)>";
 
-    public Repository(String className) {
+    public Repository() {
 
-        this.filePath = className;
+        Matcher m = Pattern.compile(typePattern).matcher(getClass().getGenericSuperclass().getTypeName());
+        if (m.find()) {
+            filePath = m.group("type");
+        }
 
         switch (Main.dataType) {
 
             case CSV: {
 
                 setDataProvider(DataProviderCsv.getInstance());
+                break;
             }
             case XML: {
 
                 setDataProvider(DataProviderXml.getInstance());
+                break;
             }
 
             case JDBC: {
 
                 setDataProvider(DataProviderJDBC.getInstance());
-
+                break;
             }
         }
     }

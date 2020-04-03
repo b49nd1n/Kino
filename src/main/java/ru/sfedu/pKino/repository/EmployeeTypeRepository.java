@@ -6,7 +6,7 @@ import ru.sfedu.pKino.repository.interfaces.Repository;
 
 public class EmployeeTypeRepository extends Repository<EmployeeType> {
 
-    public EmployeeTypeRepository(String className) {
-        super(className);
+    public EmployeeTypeRepository() {
+        super();
     }
 }

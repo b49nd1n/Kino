@@ -6,7 +6,7 @@ import ru.sfedu.pKino.repository.interfaces.Repository;
 
 public class SessionRepository extends Repository<Session> {
 
-    public SessionRepository(String className) {
-        super(className);
+    public SessionRepository() {
+        super();
     }
 }

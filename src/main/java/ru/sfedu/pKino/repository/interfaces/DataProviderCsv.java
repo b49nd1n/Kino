@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -105,7 +107,18 @@ public class DataProviderCsv extends IDataProvider {
         List<String[]> list;
         List<T>        entities = new ArrayList<>();
 
-        try (CSVReader csvReader = new CSVReader(new FileReader(getFilePath(repository)))) {
+
+        String filePath = getFilePath(repository);
+
+        try {
+            if (!Files.exists(Paths.get(filePath))) {
+                Files.createFile(Paths.get(filePath));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (CSVReader csvReader = new CSVReader(new FileReader(filePath))) {
 
             list = csvReader.readAll();
 

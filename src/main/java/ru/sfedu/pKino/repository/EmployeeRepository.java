@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class EmployeeRepository extends Repository<Employee> {
 
-    public EmployeeRepository(String className) throws IOException {
-        super(className);
+    public EmployeeRepository(){
+        super();
     }
 }

@@ -98,7 +98,8 @@ public class Entity<T> {
 
         try {
 
-            myId = getClass().getDeclaredField("Id");
+            myId = getClass().getDeclaredField("id");
+            myId.setAccessible(true);
 
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
@@ -123,7 +124,9 @@ public class Entity<T> {
         long id;
 
         try {
-            id = entity.getClass().getDeclaredField("Id").getLong(entity);
+            Field f = entity.getClass().getDeclaredField("id");
+            f.setAccessible(true);
+            id = f.getLong(entity);
         } catch (IllegalAccessException | NoSuchFieldException | NullPointerException e) {
             e.printStackTrace();
             return false;

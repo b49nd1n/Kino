@@ -6,7 +6,7 @@ import ru.sfedu.pKino.repository.interfaces.Repository;
 
 public class FilmRepository extends Repository<Film> {
 
-    public FilmRepository(String className) {
-        super(className);
+    public FilmRepository() {
+        super();
     }
 }

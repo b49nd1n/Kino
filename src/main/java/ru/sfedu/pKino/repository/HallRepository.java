@@ -5,7 +5,7 @@ import ru.sfedu.pKino.repository.interfaces.Repository;
 
 public class HallRepository extends Repository<Hall> {
 
-    public HallRepository(String className) {
-        super(className);
+    public HallRepository() {
+        super();
     }
 }
