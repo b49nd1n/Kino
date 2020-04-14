@@ -3,10 +3,11 @@ package ru.sfedu.pKino.repository.interfaces;
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Entity<T> {
 
-    public String[] getFiledsNames() {
+    public String[] getFieldsNames() {
 
         Field[]  fields = this.getClass().getDeclaredFields();
         String[] names  = new String[fields.length];
@@ -130,6 +131,7 @@ public class Entity<T> {
         } catch (IllegalAccessException | NoSuchFieldException | NullPointerException e) {
             e.printStackTrace();
             return false;
+
         }
 
         return compareById(id);

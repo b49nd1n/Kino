@@ -7,6 +7,10 @@ public class EmployeeType extends Entity<EmployeeType> {
     private long id;
     private String description;
 
+    EmployeeType(){
+
+    }
+
     public EmployeeType(long id, String description) {
         this.id = id;
         this.description = description;

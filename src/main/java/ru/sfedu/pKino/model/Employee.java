@@ -11,7 +11,6 @@ public class Employee extends Entity<Employee> {
     private long   hall_id;
     private long   type_id;
 
-
     public Employee(){
 
     }

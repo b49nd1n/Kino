@@ -9,7 +9,7 @@ class EmployeeTest {
     void stringsTest() throws IllegalAccessException {
 
         Employee e = new Employee();
-        Assert.assertArrayEquals(new String[]{"id", "name", "salary", "hall_id", "type_id"}, e.getFiledsNames());
+        Assert.assertArrayEquals(new String[]{"id", "name", "salary", "hall_id", "type_id"}, e.getFieldsNames());
 
 
         e.setId(0);
